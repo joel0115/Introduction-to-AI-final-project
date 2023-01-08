@@ -44,14 +44,21 @@ $(document).ready(() => {
                             return res.json()
                         })
                         .then(dict => {
-                            let max = Math.max(...prediction);
-                            let cls = prediction.indexOf(max);
-                            console.log(max)
-                            console.log(cls)
+                            max_list = []
+                            for (let i = 0; i < 5; i += 1) {
+                                let max = Math.max(...prediction);
+                                let cls = prediction.indexOf(max);
+                                console.log(max)
+                                console.log(cls)
+                                prediction[cls] = -1;
+                                max_list.push(cls);
+                            }
+                            // remove all previous answer
+                            $("#result").empty();
 
-                            result = dict[cls.toString()]
-                            console.log(result)
-                            $("#result").text(result);
+                            for (let i = 0; i < 5; i += 1) {
+                                $("#result").append(`<span style="margin-left:10px; width:20%; border:solid 1px; display:inline; font-size:50px" class="pred" onclick="click_pred(this)">${dict[max_list[i].toString()]}</span>`)
+                            }
                         })
                 });
             })
