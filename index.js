@@ -1,7 +1,14 @@
 const input_sequence_len = 2;
-url = './word2integer.json'
+w2i_url = './word2integer.json'
 tfjs_url = './model.json'
 i2w_url = 'integer2word.json'
+
+
+const click_pred = (obj) => {
+    text_to_append = obj.innerHTML;
+    origin_text = $("#nme").val();
+    $("#nme").val(origin_text + text_to_append).trigger("change");
+}
 
 const text_to_int = (text, dict) => {
     let int_sequence = []
@@ -26,7 +33,7 @@ const text_to_int = (text, dict) => {
 
 $(document).ready(() => {
     $("#nme").change(() => {
-        fetch(url)
+        fetch(w2i_url)
             .then(response => {
                 return response.json()
             })
