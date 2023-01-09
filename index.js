@@ -1,4 +1,4 @@
-const input_sequence_len = 2;
+const input_sequence_len = 24;
 w2i_url = './word2integer.json'
 tfjs_url = './model.json'
 i2w_url = 'integer2word.json'
@@ -20,11 +20,10 @@ const text_to_int = (text, dict) => {
             int_sequence.push(0)
         }
     }
-
-    for (let i = 0; i < (input_sequence_len - int_sequence.length); i++) {
+    pad_lenth = input_sequence_len - int_sequence.length
+    for (let i = 0; i < pad_lenth; i++) {
         int_sequence = [0, ...int_sequence]
     }
-
     if (int_sequence.length > input_sequence_len) {
         int_sequence = int_sequence.slice(-input_sequence_len);
     }
